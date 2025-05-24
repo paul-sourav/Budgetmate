@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "678258211705",
+    "project_id": "budgetmate-5ff43",
+    "storage_bucket": "budgetmate-5ff43.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:678258211705:android:9b710908d00d621457cda8",
+        "android_client_info": {
+          "package_name": "com.budgetmate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh3jo1UkzYG6NLRiA81ZT_RBBCdz7JD1w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,39 @@
+{
+  "expense": [
+    {
+      "label": "Groceries & Essentials",
+      "icon": "cart-heart",
+      "color": "#F6D743"
+    },
+    {"label": "Transport", "icon": "bus", "color": "#93C5E1"},
+    {"label": "Housing & Utilities", "icon": "home-city", "color": "#B5D8B6"},
+    {
+      "label": "Food & Dining",
+      "icon": "silverware-fork-knife",
+      "color": "#F8B55B"
+    },
+    {
+      "label": "Bills & Subscriptions",
+      "icon": "file-document-outline",
+      "color": "#F2857A"
+    },
+    {"label": "Shopping", "icon": "shopping", "color": "#EF4E4E"},
+    {"label": "Health & Wellness", "icon": "heart-pulse", "color": "#E0A9D5"},
+    {"label": "Medicines", "icon": "pill", "color": "#C88ED2"},
+    {"label": "Entertainment", "icon": "movie-open", "color": "#907ACB"},
+    {"label": "Education", "icon": "school", "color": "#586DC4"},
+    {"label": "Savings & Investments", "icon": "bank", "color": "#88B3DB"},
+    {
+      "label": "Gifts & Donations",
+      "icon": "gift-outline",
+      "color": "#F3C766"
+    },
+    {
+      "label": "Family & Kids",
+      "icon": "baby-face-outline",
+      "color": "#F7A887"
+    },
+    {"label": "Pets", "icon": "paw", "color": "#C7B1DC"},
+    {"label": "Others", "icon": "dots-horizontal", "color": "#B2C9C2"}
+  ]
+}
