@@ -1,0 +1,124 @@
+{
+  "transactions": [
+    {
+      "id": "1",
+      "amount": 1200,
+      "description": "Grocery shopping at Walmart",
+      "category": {
+        "label": "Groceries",
+        "icon": "cart",
+        "color": "#4CAF50"
+      },
+      "attachment": "https://images.unsplash.com/photo-1585238341974-67f4caa1a4e3",
+      "date": "2025-05-21T10:00:00Z"
+    },
+    {
+      "id": "2",
+      "amount": 450,
+      "description": "Uber ride to client meeting",
+      "category": {
+        "label": "Transport",
+        "icon": "car",
+        "color": "#2196F3"
+      },
+      "attachment": "https://images.unsplash.com/photo-1568605114967-8130f3a36994",
+      "date": "2025-05-22T08:45:00Z"
+    },
+    {
+      "id": "3",
+      "amount": 3500,
+      "description": "Monthly Rent",
+      "category": {
+        "label": "Housing",
+        "icon": "home",
+        "color": "#FF9800"
+      },
+      "attachment": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914",
+      "date": "2025-05-01T12:00:00Z"
+    },
+    {
+      "id": "4",
+      "amount": 600,
+      "description": "Dinner with friends",
+      "category": {
+        "label": "Food",
+        "icon": "silverware-fork-knife",
+        "color": "#E91E63"
+      },
+      "attachment": "https://images.unsplash.com/photo-1600891964599-f61ba0e24092",
+      "date": "2025-05-19T19:30:00Z"
+    },
+    {
+      "id": "5",
+      "amount": 99,
+      "description": "Netflix Subscription",
+      "category": {
+        "label": "Entertainment",
+        "icon": "television",
+        "color": "#9C27B0"
+      },
+      "attachment": "",
+      "date": "2025-05-05T00:00:00Z"
+    },
+    {
+      "id": "6",
+      "amount": 220,
+      "description": "Office Stationery",
+      "category": {
+        "label": "Office",
+        "icon": "clipboard-text",
+        "color": "#3F51B5"
+      },
+      "attachment": "https://images.unsplash.com/photo-1581092334577-26d4a16b9f17",
+      "date": "2025-05-17T11:15:00Z"
+    },
+    {
+      "id": "7",
+      "amount": 150,
+      "description": "Coffee with client",
+      "category": {
+        "label": "Food",
+        "icon": "coffee",
+        "color": "#795548"
+      },
+      "attachment": "https://images.unsplash.com/photo-1511920170033-f8396924c348",
+      "date": "2025-05-18T10:00:00Z"
+    },
+    {
+      "id": "8",
+      "amount": 800,
+      "description": "Gym Membership",
+      "category": {
+        "label": "Health",
+        "icon": "dumbbell",
+        "color": "#4CAF50"
+      },
+      "attachment": "https://images.unsplash.com/photo-1571019613914-85f342c8406b",
+      "date": "2025-05-02T09:00:00Z"
+    },
+    {
+      "id": "9",
+      "amount": 1700,
+      "description": "Laptop EMI Payment",
+      "category": {
+        "label": "EMI",
+        "icon": "laptop",
+        "color": "#607D8B"
+      },
+      "attachment": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8",
+      "date": "2025-05-10T13:00:00Z"
+    },
+    {
+      "id": "10",
+      "amount": 260,
+      "description": "Mobile Recharge",
+      "category": {
+        "label": "Utilities",
+        "icon": "cellphone",
+        "color": "#FF5722"
+      },
+      "attachment": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9",
+      "date": "2025-05-12T15:45:00Z"
+    }
+  ]
+}

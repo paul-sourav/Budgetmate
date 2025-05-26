@@ -1,4 +1,4 @@
-import {Button, StyleSheet, View} from 'react-native';
+import {Button, Image, StyleSheet, View} from 'react-native';
 import React, {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import RouteName from '../../Config/Common';
@@ -13,9 +13,19 @@ const Splash = ({navigation}: {navigation: any}) => {
     }, 2000);
   }, []);
   return (
-    <RootLayout title="">
-      <Text category="h1">Splash</Text>
-    </RootLayout>
+    <>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Image
+          source={require('../../Assets/Logo_transparent.png')}
+          style={{
+            width: '50%',
+            height: '50%',
+            resizeMode: 'contain',
+            tintColor: 'black',
+          }}
+        />
+      </View>
+    </>
   );
 };
 

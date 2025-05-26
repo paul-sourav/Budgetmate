@@ -1,9 +1,8 @@
-import {View, Text} from 'react-native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import RouteName from '../../Config/Common';
 import Home from '../../Screens/Home/Home';
-import Tansections from '../../Screens/Transections/Tansections';
+import Tansections from '../../Screens/Transections/Transection';
 import Reports from '../../Screens/Reports/Reports';
 import Account from '../../Screens/Account/Account';
 import Ionicons from 'react-native-vector-icons/Ionicons';
