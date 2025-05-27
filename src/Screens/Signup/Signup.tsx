@@ -6,7 +6,11 @@ import Email from './Components/Email';
 import Password from './Components/Password';
 import EntBudget from './Components/EntBudget';
 import RootLayout from '../../Components/Ui/RootLayout';
-
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+} from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 const Signup = () => {
   const [step, setStep] = useState<number>(1);
   const [name, setName] = useState<string>('');
@@ -16,7 +20,25 @@ const Signup = () => {
   const [monthly, setMonthly] = useState<string>('');
   const [dailyBudget, setDailyBudget] = useState<string>('');
 
-  const SignInHandler = () => {};
+  // ... your other imports
+
+  const SignInHandler = async () => {
+    const auth = getAuth();
+    const res = await createUserWithEmailAndPassword(auth, email, password);
+    if (res.user) {
+      const collection = 'user_details';
+      const response = await firestore()
+        .collection(collection)
+        .add({
+          name: name,
+          email: email,
+          age: Number(age),
+          montly_budget: Number(monthly),
+          daily_budget: Number(dailyBudget),
+          created: firestore.FieldValue.serverTimestamp(),
+        });
+    }
+  };
 
   const next = () => {
     setStep(prev => prev + 1);

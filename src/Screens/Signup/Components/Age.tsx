@@ -18,6 +18,7 @@ const Age = ({
       <Text category="h1">Wats your Age?</Text>
       <GlobalTextInput
         value={age}
+        onChangeText={e => setAge(e)}
         placeholder="enter your age"></GlobalTextInput>
       {/* <RNDateTimePicker value={new Date()} /> */}
       <Button children={'Next'} onPress={() => next()} />

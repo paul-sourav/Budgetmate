@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleProp, TextStyle, ViewStyle} from 'react-native';
-import {Input} from '@ui-kitten/components';
+import {Input, withStyles} from '@ui-kitten/components';
 
 type GlobalTextInputProps = {
   label?: string;
@@ -39,16 +39,17 @@ const GlobalTextInput = ({
       onChangeText={onChangeText}
       secureTextEntry={secureTextEntry}
       keyboardType={keyboardType}
+      size="large"
       style={[
         {
-          borderRadius: 12,
+          borderRadius: 20,
           height: 50,
         },
         style,
       ]}
       textStyle={[
         {
-          fontSize: 14,
+          fontSize: 16,
         },
         textStyle,
       ]}

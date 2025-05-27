@@ -1,7 +1,7 @@
-import {StyleSheet} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import React, {useState} from 'react';
 import RootLayout from '../../Components/Ui/RootLayout';
-import {Button, Card, Icon, Text} from '@ui-kitten/components';
+import {Button, Card, Divider, Icon, Text} from '@ui-kitten/components';
 import GlobalTextInput from '../../Components/Global/GlobalTextInput';
 import {CommonActions, Link} from '@react-navigation/native';
 import RouteName from '../../Config/Common';
@@ -31,13 +31,21 @@ const Login = ({navigation}: {navigation: any}) => {
   };
   return (
     <RootLayout title="">
-      <Card
-        header={() => <Text category="h1">Login</Text>}
-        footer={() => (
-          <Link screen={RouteName.SIGNUP} params={''}>
-            <Text>Dont have an account</Text>
-          </Link>
-        )}>
+      <Image
+        source={require('../../Assets/Logo_transparent.png')}
+        style={{width: '50%', height: 50, resizeMode: 'cover'}}
+      />
+      <View style={{borderRadius: 12, gap: 9}}>
+        <Text category="h4"> Welcome back</Text>
+        <Image
+          source={require('../../Assets/Login.png')}
+          style={{
+            width: '100%',
+            height: '40%',
+            resizeMode: 'contain',
+          }}
+        />
+
         <GlobalTextInput
           value={email}
           onChangeText={e => setEmail(e)}
@@ -48,8 +56,16 @@ const Login = ({navigation}: {navigation: any}) => {
           onChangeText={e => setPassword(e)}
           placeholder="***********"
         />
-        <Button onPress={LoginHandler}>Login</Button>
-      </Card>
+        <Button
+          style={{backgroundColor: '#FD7451', borderWidth: 0, borderRadius: 18}}
+          onPress={LoginHandler}>
+          Login
+        </Button>
+        <Divider style={{marginVertical: 8}} />
+        <Link screen={RouteName.SIGNUP} params={''}>
+          <Text>Dont have an account</Text>
+        </Link>
+      </View>
     </RootLayout>
   );
 };

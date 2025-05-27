@@ -8,8 +8,8 @@ import {Text} from '@ui-kitten/components';
 const Splash = ({navigation}: {navigation: any}) => {
   useEffect(() => {
     setTimeout(() => {
-      // navigation.navigate(RouteName.LOGIN);
-      navigation.reset({index: 0, routes: [{name: RouteName.BOTTOM}]});
+      navigation.navigate(RouteName.LOGIN);
+      // navigation.reset({index: 0, routes: [{name: RouteName.BOTTOM}]});
     }, 2000);
   }, []);
   return (

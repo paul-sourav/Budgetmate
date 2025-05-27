@@ -18,6 +18,7 @@ const Name = ({
       <Text category="h1">Wats your name?</Text>
       <GlobalTextInput
         value={name}
+        onChangeText={e => setName(e)}
         placeholder="enter your name"></GlobalTextInput>
       <Button children={'Next'} onPress={() => next()} />
     </CommonCard>
