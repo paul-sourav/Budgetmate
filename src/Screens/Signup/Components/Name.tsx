@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import CommonCard from './CommonCard';
 import {Button, Text} from '@ui-kitten/components';
 import GlobalTextInput from '../../../Components/Global/GlobalTextInput';
+import GlobalStyles from '../../../Components/Global/GlobalStyles';
 
 const Name = ({
   next,
@@ -14,13 +15,14 @@ const Name = ({
   setName: (value: string) => void;
 }) => {
   return (
-    <CommonCard>
-      <Text category="h1">Wats your name?</Text>
+    <CommonCard title="Wats your name?">
       <GlobalTextInput
         value={name}
         onChangeText={e => setName(e)}
         placeholder="enter your name"></GlobalTextInput>
-      <Button children={'Next'} onPress={() => next()} />
+      <Button style={GlobalStyles.button} onPress={next}>
+        Next
+      </Button>
     </CommonCard>
   );
 };

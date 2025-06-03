@@ -3,6 +3,7 @@ import React, {FC, useState} from 'react';
 import CommonCard from './CommonCard';
 import {Button, Text} from '@ui-kitten/components';
 import GlobalTextInput from '../../../Components/Global/GlobalTextInput';
+import GlobalStyles from '../../../Components/Global/GlobalStyles';
 
 interface EntBudgetProps {
   next: () => void;
@@ -16,27 +17,32 @@ const EntBudget: FC<EntBudgetProps> = props => {
   const {dailyBudget, monthly, next, setDailyBudget, setMontly} = props;
 
   return (
-    <CommonCard>
-      <View>
-        <Text category="h1">Ent Budget</Text>
-        <Text category="h5">Enter your monthly and dailybudgets</Text>
-      </View>
+    <CommonCard title="Ent Budget">
+      <Text category="p">Enter your monthly and dailybudgets</Text>
 
       <View>
         <Text category="p2">Montly Budget</Text>
         <GlobalTextInput
           value={monthly}
+          onChangeText={e => setMontly(e)}
+          keyboardType="numeric"
           placeholder="Montly Budget"></GlobalTextInput>
       </View>
 
       <View>
         <Text category="p2">Daily Budget</Text>
         <GlobalTextInput
-          value={monthly}
+          value={dailyBudget}
+          keyboardType="numeric"
+          onChangeText={e => setDailyBudget(e)}
           placeholder="Daily Budget"></GlobalTextInput>
       </View>
 
-      <Button children={'Next'} />
+      <Button
+        style={GlobalStyles.button}
+        onPress={() => next()}
+        children={'Create account'}
+      />
     </CommonCard>
   );
 };

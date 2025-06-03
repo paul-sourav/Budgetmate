@@ -37,6 +37,10 @@ const Signup = () => {
           daily_budget: Number(dailyBudget),
           created: firestore.FieldValue.serverTimestamp(),
         });
+
+      if (response._documentPath) {
+        console.log('response', response);
+      }
     }
   };
 
@@ -57,14 +61,43 @@ const Signup = () => {
       )}
       {step === 5 && (
         <EntBudget
-          next={next}
+          next={SignInHandler}
           monthly={monthly}
           setMontly={setMonthly}
           setDailyBudget={setDailyBudget}
           dailyBudget={dailyBudget}
         />
       )}
+      <StepIndicator step={step} />
     </RootLayout>
+  );
+};
+
+const StepIndicator = ({step}: {step: number}) => {
+  return (
+    <View
+      style={{
+        gap: 12,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 250,
+
+        flexDirection: 'row',
+      }}>
+      {[1, 2, 3, 4, 5].map(item => (
+        <View
+          style={{
+            width: 20,
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 20,
+            borderRadius: 12,
+            backgroundColor: step == item ? '#FD7451' : '#ffd1c1',
+          }}>
+          {step == item && <Text>{step}</Text>}
+        </View>
+      ))}
+    </View>
   );
 };
 

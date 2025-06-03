@@ -1,18 +1,21 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import {Card} from '@ui-kitten/components';
+import {Card, Text} from '@ui-kitten/components';
 
-const CommonCard = ({children}: {children: any}) => {
+const CommonCard = ({children, title}: {children: any; title: string}) => {
   return (
-    <Card
+    <View
       style={{
         padding: 12,
         backgroundColor: '#fff',
         borderRadius: 12,
         gap: 18,
+        flex: 1,
+        elevation: 3,
       }}>
+      <Text category="h5">{title}</Text>
       {children}
-    </Card>
+    </View>
   );
 };
 

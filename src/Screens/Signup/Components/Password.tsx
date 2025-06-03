@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import CommonCard from './CommonCard';
 import {Button, Text} from '@ui-kitten/components';
 import GlobalTextInput from '../../../Components/Global/GlobalTextInput';
+import GlobalStyles from '../../../Components/Global/GlobalStyles';
 
 const Password = ({
   next,
@@ -14,12 +15,16 @@ const Password = ({
   setPassword: (value: string) => void;
 }) => {
   return (
-    <CommonCard>
-      <Text category="h1">Wats your password?</Text>
+    <CommonCard title="Wats your password?">
       <GlobalTextInput
         value={password}
+        onChangeText={e => setPassword(e)}
         placeholder="password"></GlobalTextInput>
-      <Button children={'Next'} onPress={() => next()} />
+      <Button
+        style={GlobalStyles.button}
+        children={'Next'}
+        onPress={() => next()}
+      />
     </CommonCard>
   );
 };

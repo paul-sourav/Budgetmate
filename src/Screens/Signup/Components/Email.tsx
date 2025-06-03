@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import CommonCard from './CommonCard';
 import {Button, Text} from '@ui-kitten/components';
 import GlobalTextInput from '../../../Components/Global/GlobalTextInput';
+import GlobalStyles from '../../../Components/Global/GlobalStyles';
 
 const Email = ({
   next,
@@ -14,12 +15,16 @@ const Email = ({
   setEmail: (value: string) => void;
 }) => {
   return (
-    <CommonCard>
-      <Text category="h1">Wats your Email?</Text>
+    <CommonCard title="Wats your Email?">
       <GlobalTextInput
         value={email}
+        onChangeText={e => setEmail(e)}
         placeholder="admin@example.com"></GlobalTextInput>
-      <Button children={'Next'} onPress={() => next()} />
+      <Button
+        style={GlobalStyles.button}
+        children={'Next'}
+        onPress={() => next()}
+      />
     </CommonCard>
   );
 };

@@ -7,6 +7,7 @@ import {CommonActions, Link} from '@react-navigation/native';
 import RouteName from '../../Config/Common';
 import HandleSignin from '../../Shared/Hooks/HandleSignin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import GlobalStyles from '../../Components/Global/GlobalStyles';
 
 const Login = ({navigation}: {navigation: any}) => {
   const [email, setEmail] = useState<string>('');
@@ -56,9 +57,7 @@ const Login = ({navigation}: {navigation: any}) => {
           onChangeText={e => setPassword(e)}
           placeholder="***********"
         />
-        <Button
-          style={{backgroundColor: '#FD7451', borderWidth: 0, borderRadius: 18}}
-          onPress={LoginHandler}>
+        <Button style={GlobalStyles.button} onPress={LoginHandler}>
           Login
         </Button>
         <Divider style={{marginVertical: 8}} />

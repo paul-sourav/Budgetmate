@@ -3,6 +3,8 @@ import React, {useState} from 'react';
 import CommonCard from './CommonCard';
 import {Button, Text} from '@ui-kitten/components';
 import GlobalTextInput from '../../../Components/Global/GlobalTextInput';
+import DatePicker from 'react-native-date-picker';
+import GlobalStyles from '../../../Components/Global/GlobalStyles';
 
 const Age = ({
   next,
@@ -13,15 +15,42 @@ const Age = ({
   age: string;
   setAge: (value: string) => void;
 }) => {
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
+
   return (
-    <CommonCard>
-      <Text category="h1">Wats your Age?</Text>
-      <GlobalTextInput
-        value={age}
-        onChangeText={e => setAge(e)}
-        placeholder="enter your age"></GlobalTextInput>
-      {/* <RNDateTimePicker value={new Date()} /> */}
-      <Button children={'Next'} onPress={() => next()} />
+    <CommonCard title="Wats your Age?">
+      <Button
+        appearance="outline"
+        status="basic"
+        size="large"
+        style={{borderRadius: 20}}
+        accessoryLeft={() => <Text category="h6">Your Age</Text>}
+        children={new Date(date).toLocaleDateString()}
+        onPress={() => setOpen(true)}
+      />
+      <DatePicker
+        modal
+        open={open}
+        mode={'date'}
+        date={date}
+        onConfirm={date => {
+          setOpen(false);
+          setDate(date);
+        }}
+        onCancel={() => {
+          setOpen(false);
+        }}
+      />
+
+      <Button
+        children="Next"
+        style={GlobalStyles.button}
+        onPress={() => {
+          setAge(String(date.getTime()));
+          next();
+        }}
+      />
     </CommonCard>
   );
 };
