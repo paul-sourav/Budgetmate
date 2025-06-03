@@ -16,6 +16,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {launchImageLibrary} from 'react-native-image-picker';
+import GlobalStyles from '../../Components/Global/GlobalStyles';
 
 const Home = () => {
   const [description, setDiscription] = useState<string>('');
@@ -151,8 +152,8 @@ const Home = () => {
             </Button>
 
             <Button
-              appearance="outline"
-              style={{justifyContent: 'space-between'}}
+              status="basic"
+              style={{justifyContent: 'space-between', borderRadius: 8}}
               accessoryRight={() => <Ionicon name={'attach'} size={24} />}
               onPress={ImagePickerHandler}>
               Attachment
@@ -183,7 +184,7 @@ const Home = () => {
               </ImageBackground>
             )}
 
-            <Button style={{borderRadius: 20}} onPress={pressHandler}>
+            <Button style={GlobalStyles.button} onPress={pressHandler}>
               Add Expense
             </Button>
           </View>

@@ -10,41 +10,69 @@ const Transection = () => {
     <RootLayout title="">
       <ScrollView>
         <View style={{gap: 10, padding: 10}}>
+          <Text category="h3">Transections</Text>
           {transactions.map((transection, index) => (
-            <Card
-              key={index}
-              style={{
-                borderRadius: 10,
-                backgroundColor: '#f8f9fa',
-              }}>
-              <MaterialCommunityIcons
-                name={transection.category.icon as any}
-                size={30}
-                color={transection.category.color}
-                style={{marginRight: 12}}
+            <View key={index} style={styles.mainContainer}>
+              {/* Accent Bar */}
+              <View
+                style={{
+                  width: 6,
+                  height: '100%',
+                  borderRadius: 6,
+                  backgroundColor: transection.category.color,
+                  marginRight: 12,
+                }}
               />
-              <View>
-                <Text category="h6">{transection.category.label}</Text>
-                <Text category="s1" style={{color: '#6c757d'}}>
-                  {transection.date}
+              {/* Main Content */}
+              <View style={{flex: 1}}>
+                <Text category="p2" style={{color: '#adb5bd', marginBottom: 2}}>
+                  {new Date(transection.date).toDateString()}
                 </Text>
-                <Text category="h1" style={{marginTop: 5}}>
-                  Amount: ${transection.amount}
+                <Text
+                  category="h5"
+                  style={{fontWeight: 'bold', color: '#212529'}}>
+                  ${transection.amount}
                 </Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginTop: 6,
+                  }}>
+                  <MaterialCommunityIcons
+                    name={transection.category.icon as any}
+                    size={26}
+                    color={transection.category.color}
+                    style={{marginRight: 8}}
+                  />
+                  <Text category="s1" style={{color: '#495057'}}>
+                    {transection.category.label}
+                  </Text>
+                  {transection.attachment && (
+                    <MaterialCommunityIcons
+                      name="paperclip"
+                      size={18}
+                      color="#868e96"
+                      style={{marginLeft: 10}}
+                    />
+                  )}
+                </View>
               </View>
-
+              {/* Attachment Preview */}
               {transection.attachment && (
                 <Image
                   source={{uri: transection.attachment}}
                   style={{
-                    width: 50,
-                    height: 50,
-                    borderRadius: 8,
-                    marginTop: 10,
+                    width: 48,
+                    height: 48,
+                    borderRadius: 10,
+                    marginLeft: 10,
+                    borderWidth: 1,
+                    borderColor: '#dee2e6',
                   }}
                 />
               )}
-            </Card>
+            </View>
           ))}
         </View>
       </ScrollView>
@@ -54,4 +82,19 @@ const Transection = () => {
 
 export default Transection;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  mainContainer: {
+    borderRadius: 14,
+    backgroundColor: '#fff',
+    flex: 1,
+    padding: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 2,
+    marginBottom: 6,
+  },
+});
