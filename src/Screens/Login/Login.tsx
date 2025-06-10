@@ -57,7 +57,9 @@ const Login = ({navigation}: {navigation: any}) => {
           onChangeText={e => setPassword(e)}
           placeholder="***********"
         />
-        <Button style={GlobalStyles.button} onPress={LoginHandler}>
+        <Button
+          style={GlobalStyles.button}
+          onPress={() => navigation.navigate(RouteName.BOTTOM)}>
           Login
         </Button>
         <Divider style={{marginVertical: 8}} />
