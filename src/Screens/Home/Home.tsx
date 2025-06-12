@@ -1,4 +1,5 @@
 import {
+  Alert,
   Dimensions,
   Image,
   ImageBackground,
@@ -7,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {use, useEffect, useRef, useState} from 'react';
 import {Button, Input, Text} from '@ui-kitten/components';
 import RootLayout from '../../Components/Ui/RootLayout';
 import RBSheet from 'react-native-raw-bottom-sheet';
@@ -17,6 +18,9 @@ import Ionicon from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {launchImageLibrary} from 'react-native-image-picker';
 import GlobalStyles from '../../Components/Global/GlobalStyles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {AsyncKeys} from '../../Config/Common';
+import firestore from '@react-native-firebase/firestore';
 
 const Home = () => {
   const [description, setDiscription] = useState<string>('');
@@ -25,10 +29,24 @@ const Home = () => {
   >(undefined);
   const [amount, setAmount] = useState<number>(0);
   const [attachement, setAttachment] = useState<any>('');
+  const [userDetails, setUserDetails] = useState<any>(null);
+  const [userID, setUserID] = useState<string>('');
 
   const bottomRef = useRef<any>(null);
 
-  const pressHandler = () => {
+  //*-----------------------FETCH USER DETAILS FROM ASYNC STORAGE-----------------------------
+  useEffect(() => {
+    const getUserData = async () => {
+      const data = await AsyncStorage.getItem(AsyncKeys.USER_DETAILS);
+      const userID = await AsyncStorage.getItem(AsyncKeys.USER_ID);
+      setUserDetails(data ? JSON.parse(data) : null);
+      setUserID(userID || '');
+      return data ? JSON.parse(data) : null;
+    };
+    getUserData();
+  }, []);
+
+  const pressHandler = async () => {
     console.log(
       'all summary ---------',
       description,
@@ -36,16 +54,39 @@ const Home = () => {
       category,
       attachement,
     );
+
+    const collectionName = 'expense_details';
+    const resposne = await firestore()
+      .collection(collectionName)
+      .doc(userID)
+      .set({
+        description,
+        amount,
+        category,
+        attachement,
+        userID,
+        created: new Date().getTime(),
+      });
+
+    Alert.alert(
+      'Expense Added Successfully',
+      'Your expense has been added successfully.',
+    );
+    console.log('Response from firestore', resposne);
   };
 
   const ImagePickerHandler = async () => {
-    const result = await launchImageLibrary({mediaType: 'photo', quality: 0.7});
+    const result = await launchImageLibrary({
+      mediaType: 'photo',
+      quality: 0.3,
+      includeBase64: true,
+    });
 
     if (result.didCancel) {
       console.error('user cancel the media picker');
     } else if (result.assets) {
-      console.log('result----------', result.assets[0].uri);
-      setAttachment(result.assets[0].uri);
+      console.log('result----------', result.assets[0].base64);
+      setAttachment(result.assets[0].base64);
     }
   };
 
@@ -110,7 +151,7 @@ const Home = () => {
   };
 
   return (
-    <RootLayout title="">
+    <RootLayout title={`Welcome ${userDetails?.name || ''}`}>
       <View style={{flex: 1}}>
         <ScrollView contentContainerStyle={{paddingBottom: 32}}>
           <View style={{gap: 16}}>
@@ -161,7 +202,7 @@ const Home = () => {
 
             {attachement && (
               <ImageBackground
-                source={{uri: attachement}}
+                source={{uri: `data:image/jpg;base64,${attachement}`}}
                 style={{
                   width: 80,
                   height: 80,

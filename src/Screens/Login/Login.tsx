@@ -1,13 +1,14 @@
 import {Image, StyleSheet, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {use, useState} from 'react';
 import RootLayout from '../../Components/Ui/RootLayout';
 import {Button, Card, Divider, Icon, Text} from '@ui-kitten/components';
 import GlobalTextInput from '../../Components/Global/GlobalTextInput';
 import {CommonActions, Link} from '@react-navigation/native';
-import RouteName from '../../Config/Common';
+import {AsyncKeys, RouteName} from '../../Config/Common';
 import HandleSignin from '../../Shared/Hooks/HandleSignin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GlobalStyles from '../../Components/Global/GlobalStyles';
+import firestore from '@react-native-firebase/firestore';
 
 const Login = ({navigation}: {navigation: any}) => {
   const [email, setEmail] = useState<string>('');
@@ -15,13 +16,25 @@ const Login = ({navigation}: {navigation: any}) => {
 
   const LoginHandler = async () => {
     const response = await HandleSignin({
-      email: email.trim(),
+      email: email.trim().toLowerCase(),
       password: password.trim(),
     });
 
     if (response) {
-      console.log('response------------------------', response);
       await AsyncStorage.setItem('userId', response.uid);
+      const collectionName = 'user_details';
+      const userDetails = await firestore()
+        .collection(collectionName)
+        .doc(response.uid)
+        .get();
+
+      if (userDetails.data()) {
+        await AsyncStorage.setItem(
+          AsyncKeys.USER_DETAILS,
+          JSON.stringify(userDetails.data()),
+        );
+      }
+
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
@@ -30,6 +43,7 @@ const Login = ({navigation}: {navigation: any}) => {
       );
     }
   };
+
   return (
     <RootLayout title="">
       <Image
@@ -57,9 +71,7 @@ const Login = ({navigation}: {navigation: any}) => {
           onChangeText={e => setPassword(e)}
           placeholder="***********"
         />
-        <Button
-          style={GlobalStyles.button}
-          onPress={() => navigation.navigate(RouteName.BOTTOM)}>
+        <Button style={GlobalStyles.button} onPress={LoginHandler}>
           Login
         </Button>
         <Divider style={{marginVertical: 8}} />

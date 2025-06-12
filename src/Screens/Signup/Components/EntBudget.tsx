@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import React, {FC, useState} from 'react';
 import CommonCard from './CommonCard';
 import {Button, Text} from '@ui-kitten/components';
@@ -6,15 +6,17 @@ import GlobalTextInput from '../../../Components/Global/GlobalTextInput';
 import GlobalStyles from '../../../Components/Global/GlobalStyles';
 
 interface EntBudgetProps {
-  next: () => void;
+  signup: () => void;
   monthly: string;
   setMontly: (value: string) => void;
   dailyBudget: string;
+  loading?: boolean;
   setDailyBudget: (value: string) => void;
 }
 
 const EntBudget: FC<EntBudgetProps> = props => {
-  const {dailyBudget, monthly, next, setDailyBudget, setMontly} = props;
+  const {dailyBudget, monthly, signup, setDailyBudget, setMontly, loading} =
+    props;
 
   return (
     <CommonCard title="Ent Budget">
@@ -38,11 +40,9 @@ const EntBudget: FC<EntBudgetProps> = props => {
           placeholder="Daily Budget"></GlobalTextInput>
       </View>
 
-      <Button
-        style={GlobalStyles.button}
-        onPress={() => next()}
-        children={'Create account'}
-      />
+      <Button style={GlobalStyles.button} onPress={() => signup()}>
+        {loading ? <ActivityIndicator size={'small'} /> : 'Create account'}
+      </Button>
     </CommonCard>
   );
 };

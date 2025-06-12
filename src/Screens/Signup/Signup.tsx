@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Alert, StyleSheet, Text, ToastAndroid, View} from 'react-native';
 import React, {useState} from 'react';
 import Name from './Components/Name';
 import Age from './Components/Age';
@@ -11,7 +11,9 @@ import {
   getAuth,
 } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-const Signup = () => {
+import {RouteName, AsyncKeys} from '../../Config/Common';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+const Signup = ({navigation}: {navigation: any}) => {
   const [step, setStep] = useState<number>(1);
   const [name, setName] = useState<string>('');
   const [age, setAge] = useState<string>('');
@@ -19,31 +21,61 @@ const Signup = () => {
   const [password, setPassword] = useState<string>('');
   const [monthly, setMonthly] = useState<string>('');
   const [dailyBudget, setDailyBudget] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // ... your other imports
 
   const SignInHandler = async () => {
     const auth = getAuth();
-    const res = await createUserWithEmailAndPassword(auth, email, password);
-    if (res.user) {
-      const collection = 'user_details';
-      const response = await firestore()
-        .collection(collection)
-        .add({
-          name: name,
-          email: email,
-          age: Number(age),
-          montly_budget: Number(monthly),
-          daily_budget: Number(dailyBudget),
-          created: firestore.FieldValue.serverTimestamp(),
-        });
+    setIsLoading(true);
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, password);
 
-      if (response._documentPath) {
-        console.log('response', response);
+      if (res.user) {
+        const userUid = res.user.uid; // Get the UID of the newly created user
+        const collectionName = 'user_details';
+
+        const Response: any = await firestore()
+          .collection(collectionName)
+          .doc(userUid) // Use the user's UID as the document ID
+          .set({
+            name: name,
+            email: email,
+            age: Number(age),
+            montly_budget: Number(monthly),
+            daily_budget: Number(dailyBudget),
+            created: firestore.FieldValue.serverTimestamp(),
+          });
+
+        console.log(
+          'User details added to Firestore with UID as document ID:',
+          userUid,
+        );
+
+        console.log('Account created successfully:', Response);
+        ToastAndroid.showWithGravity(
+          'Account created successfully',
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER,
+        );
+
+        AsyncStorage.setItem(AsyncKeys.USER_DETAILS, JSON.stringify(Response));
+        setIsLoading(false);
+        navigation.navigate(RouteName.BOTTOM);
+      }
+    } catch (error: any) {
+      setIsLoading(false);
+      console.error('Error during sign-in or Firestore operation:', error);
+      // Handle specific errors, e.g., email already in use, weak password
+      if (error.code === 'auth/email-already-in-use') {
+        Alert.alert('That email address is already in use!');
+      } else if (error.code === 'auth/invalid-email') {
+        Alert.alert('That email address is invalid!');
+      } else {
+        Alert.alert('An error occurred during sign-in. Please try again.');
       }
     }
   };
-
   const next = () => {
     setStep(prev => prev + 1);
   };
@@ -61,11 +93,12 @@ const Signup = () => {
       )}
       {step === 5 && (
         <EntBudget
-          next={SignInHandler}
+          signup={SignInHandler}
           monthly={monthly}
           setMontly={setMonthly}
           setDailyBudget={setDailyBudget}
           dailyBudget={dailyBudget}
+          loading={isLoading}
         />
       )}
       <StepIndicator step={step} />
@@ -102,5 +135,3 @@ const StepIndicator = ({step}: {step: number}) => {
 };
 
 export default Signup;
-
-const styles = StyleSheet.create({});

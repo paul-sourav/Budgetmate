@@ -1,6 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import RouteName from '../../Config/Common';
+import {RouteName} from '../../Config/Common';
 import Home from '../../Screens/Home/Home';
 import Tansections from '../../Screens/Transections/Transection';
 import Reports from '../../Screens/Reports/Reports';

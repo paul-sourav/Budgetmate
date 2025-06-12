@@ -10,5 +10,9 @@ const RouteName ={
      ACCOUNT:"Account",
 
 }
+const AsyncKeys ={
+     USER_DETAILS:"user_details",
+     USER_ID:"userId"
+}
 
-export default RouteName;
+export  {RouteName,AsyncKeys};
