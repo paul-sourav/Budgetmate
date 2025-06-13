@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {use, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Button, Input, Text} from '@ui-kitten/components';
 import RootLayout from '../../Components/Ui/RootLayout';
 import RBSheet from 'react-native-raw-bottom-sheet';
@@ -20,7 +20,7 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import GlobalStyles from '../../Components/Global/GlobalStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AsyncKeys} from '../../Config/Common';
-import firestore from '@react-native-firebase/firestore';
+import useAddExpense from '../../Hooks/useAddExpense';
 
 const Home = () => {
   const [description, setDiscription] = useState<string>('');
@@ -33,8 +33,9 @@ const Home = () => {
   const [userID, setUserID] = useState<string>('');
 
   const bottomRef = useRef<any>(null);
+  const {mutate} = useAddExpense();
 
-  //*-----------------------FETCH USER DETAILS FROM ASYNC STORAGE-----------------------------
+  //todo:-----------------------FETCH USER DETAILS FROM ASYNC STORAGE-----------------------------
   useEffect(() => {
     const getUserData = async () => {
       const data = await AsyncStorage.getItem(AsyncKeys.USER_DETAILS);
@@ -46,33 +47,32 @@ const Home = () => {
     getUserData();
   }, []);
 
-  const pressHandler = async () => {
-    console.log(
-      'all summary ---------',
-      description,
-      amount,
-      category,
-      attachement,
-    );
+  //todo:--------------------TO RESET ALL THE VALUE AFTER SUCCESS-----------------------------
+  const reset = () => {
+    setAmount(0), setAttachment(''), setCategory(undefined);
+  };
 
-    const collectionName = 'expense_details';
-    const resposne = await firestore()
-      .collection(collectionName)
-      .doc(userID)
-      .set({
+  const pressHandler = async () => {
+    mutate(
+      {
         description,
         amount,
         category,
         attachement,
         userID,
         created: new Date().getTime(),
-      });
-
-    Alert.alert(
-      'Expense Added Successfully',
-      'Your expense has been added successfully.',
+      },
+      {
+        onSuccess: data => {
+          Alert.alert(
+            'Expense Added Successfully',
+            'Your expense has been added successfully.',
+          );
+          console.log('Response from firestore', data);
+          reset();
+        },
+      },
     );
-    console.log('Response from firestore', resposne);
   };
 
   const ImagePickerHandler = async () => {

@@ -8,7 +8,7 @@ import {AsyncKeys, RouteName} from '../../Config/Common';
 import HandleSignin from '../../Shared/Hooks/HandleSignin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GlobalStyles from '../../Components/Global/GlobalStyles';
-import firestore from '@react-native-firebase/firestore';
+import {doc, getDoc, getFirestore} from '@react-native-firebase/firestore';
 
 const Login = ({navigation}: {navigation: any}) => {
   const [email, setEmail] = useState<string>('');
@@ -23,10 +23,9 @@ const Login = ({navigation}: {navigation: any}) => {
     if (response) {
       await AsyncStorage.setItem('userId', response.uid);
       const collectionName = 'user_details';
-      const userDetails = await firestore()
-        .collection(collectionName)
-        .doc(response.uid)
-        .get();
+      const db = getFirestore();
+      const userDoc = doc(db, collectionName, response.uid);
+      const userDetails = await getDoc(userDoc);
 
       if (userDetails.data()) {
         await AsyncStorage.setItem(

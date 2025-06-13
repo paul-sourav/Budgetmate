@@ -1,3 +1,5 @@
+import { useReducer } from "react";
+
 const RouteName ={
      SPLASH:"Splash",
      LOGIN:"Login",
@@ -15,4 +17,9 @@ const AsyncKeys ={
      USER_ID:"userId"
 }
 
-export  {RouteName,AsyncKeys};
+const CollectionName = {
+     EXPENSE:"expense_details",
+     useReducer:"user_details",
+}
+
+export  {RouteName,AsyncKeys,CollectionName};
