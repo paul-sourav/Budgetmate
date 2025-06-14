@@ -21,6 +21,7 @@ import GlobalStyles from '../../Components/Global/GlobalStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AsyncKeys} from '../../Config/Common';
 import useAddExpense from '../../Hooks/useAddExpense';
+import CommonButton from '../../Components/Global/CommonButton';
 
 const Home = () => {
   const [description, setDiscription] = useState<string>('');
@@ -33,7 +34,7 @@ const Home = () => {
   const [userID, setUserID] = useState<string>('');
 
   const bottomRef = useRef<any>(null);
-  const {mutate} = useAddExpense();
+  const {mutate, isPending} = useAddExpense();
 
   //todo:-----------------------FETCH USER DETAILS FROM ASYNC STORAGE-----------------------------
   useEffect(() => {
@@ -53,6 +54,12 @@ const Home = () => {
   };
 
   const pressHandler = async () => {
+    const now = new Date();
+    const date = now.toISOString().split('T')[0]; // "2025-06-14"
+    const month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(
+      2,
+      '0',
+    )}`;
     mutate(
       {
         description,
@@ -60,7 +67,9 @@ const Home = () => {
         category,
         attachement,
         userID,
-        created: new Date().getTime(),
+        created: now.getTime(),
+        date,
+        month,
       },
       {
         onSuccess: data => {
@@ -225,9 +234,9 @@ const Home = () => {
               </ImageBackground>
             )}
 
-            <Button style={GlobalStyles.button} onPress={pressHandler}>
+            <CommonButton onPress={pressHandler} isLoading={isPending}>
               Add Expense
-            </Button>
+            </CommonButton>
           </View>
         </ScrollView>
       </View>
@@ -237,5 +246,3 @@ const Home = () => {
 };
 
 export default Home;
-
-const styles = StyleSheet.create({});
